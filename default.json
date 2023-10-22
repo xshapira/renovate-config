@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":preserveSemverRanges",
+    ":enablePreCommit",
+    ":maintainLockFilesWeekly",
+    ":automergeStableNonMajor",
+    ":automergePatch",
+    ":automergeDigest",
+    ":automergeTypes",
+    ":semanticCommitsDisabled",
+    "schedule:automergeNonOfficeHours",
+    "schedule:nonOfficeHours"
+  ],
+  "onboarding": false,
+  "automergeStrategy": "merge-commit",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 3,
+  "rebaseWhen": "behind-base-branch",
+  "git-submodules": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch", "minor"],
+      "commitMessageTopic": "⬆ Bump {{depName}} from {{currentValue}} to {{newValue}}",
+      "automerge": true,
+      "labels": ["dependency-update"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "major": {
+        "commitMessageTopic": "⬆ Bump {{depName}} from {{currentValue}} to {{newValue}}",
+        "automerge": true,
+        "minimumReleaseAge": "7 days",
+        "labels": ["major", "dependency-update"]
+      }
+    }
+  ]
+}

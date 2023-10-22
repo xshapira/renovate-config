@@ -1,0 +1,8 @@
+{
+  "name": "renovate-config-xshapira",
+  "version": "0.0.2",
+  "description": "Shareable Renovate configs to use in most of my projects.",
+  "author": "xshapira",
+  "license": "MIT",
+  "repository": "xshapira/renovate-config"
+}
