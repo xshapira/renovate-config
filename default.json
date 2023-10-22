@@ -24,14 +24,14 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "minor"],
-      "commitMessageTopic": "from {{currentValue}}",
+      "commitMessageTopic": "{{depName}} from {{currentValue}}",
       "automerge": true,
       "labels": ["dependency-update"]
     },
     {
       "matchUpdateTypes": ["major"],
       "major": {
-        "commitMessageTopic": "from {{currentValue}}",
+        "commitMessageTopic": "{{depName}} from {{currentValue}}",
         "automerge": true,
         "minimumReleaseAge": "7 days",
         "labels": ["major", "dependency-update"]
