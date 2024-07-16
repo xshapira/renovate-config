@@ -24,6 +24,7 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "minor"],
+      "rangeStrategy": "bump",
       "commitMessageTopic": "{{depName}} from {{currentValue}}",
       "automerge": true,
       "labels": ["dependency-update"]
@@ -31,6 +32,7 @@
     {
       "matchUpdateTypes": ["major"],
       "major": {
+        "rangeStrategy": "bump",
         "commitMessageTopic": "{{depName}} from {{currentValue}}",
         "automerge": true,
         "minimumReleaseAge": "7 days",
