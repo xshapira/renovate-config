@@ -1,79 +1,83 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    ":preserveSemverRanges",
-    ":enablePreCommit",
-    ":maintainLockFilesWeekly",
-    ":automergeStableNonMajor",
-    ":automergePatch",
-    ":automergeDigest",
-    ":automergeTypes",
-    ":semanticCommitsDisabled",
-    "schedule:automergeNonOfficeHours",
-    "schedule:nonOfficeHours"
-  ],
-  "requireConfig": "optional",
-  "onboarding": false,
-  "automergeStrategy": "merge-commit",
-  "prHourlyLimit": 0,
-  "prConcurrentLimit": 3,
-  "rebaseWhen": "behind-base-branch",
-  "git-submodules": {
-    "enabled": true
-  },
-  "packageRules": [
-    {
-      "description": "Group Expo/React Native packages together with conservative updates",
-      "matchManagers": [
-        "pnpm",
-        "bun"
-      ],
-      "matchPackagePatterns": [
-        "^expo",
-        "^@expo/",
-        "^react-native",
-        "^@react-native"
-      ],
-      "groupName": "expo-sdk",
-      "rangeStrategy": "auto",
-      "automerge": false,
-      "minimumReleaseAge": "21 days",
-      "schedule": [
-        "after 10pm on sunday"
-      ],
-      "commitMessageTopic": "Expo SDK packages",
-      "labels": [
-        "expo",
-        "dependency-update"
-      ]
-    },
-    {
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ],
-      "rangeStrategy": "bump",
-      "commitMessageTopic": "{{depName}} from {{currentValue}}",
-      "automerge": true,
-      "labels": [
-        "dependency-update"
-      ]
-    },
-    {
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "major": {
-        "rangeStrategy": "bump",
-        "commitMessageTopic": "{{depName}} from {{currentValue}}",
-        "automerge": true,
-        "minimumReleaseAge": "7 days",
-        "labels": [
-          "major",
-          "dependency-update"
-        ]
-      }
-    }
-  ]
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": [
+		"config:base",
+		":preserveSemverRanges",
+		":enablePreCommit",
+		":maintainLockFilesWeekly",
+		":semanticCommitsDisabled",
+		"schedule:nonOfficeHours"
+	],
+	"requireConfig": "optional",
+	"onboarding": false,
+	"automergeStrategy": "merge-commit",
+	"prHourlyLimit": 3,
+	"prConcurrentLimit": 20,
+	"rebaseWhen": "behind-base-branch",
+	"git-submodules": {
+		"enabled": true
+	},
+	"packageRules": [
+		{
+			"description": "Dev dependency patches (automerge after 3 days)",
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["patch"],
+			"rangeStrategy": "auto",
+			"commitMessageTopic": "{{depName}} from {{currentValue}}",
+			"automerge": true,
+			"minimumReleaseAge": "3 days",
+			"labels": ["dependency-update", "dev-dependency", "patch"]
+		},
+		{
+			"description": "Dev dependency minors (automerge after 5 days)",
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["minor"],
+			"rangeStrategy": "auto",
+			"commitMessageTopic": "{{depName}} from {{currentValue}}",
+			"automerge": true,
+			"minimumReleaseAge": "5 days",
+			"labels": ["dependency-update", "dev-dependency", "minor"]
+		},
+		{
+			"description": "Dev dependency majors (automerge after 7 days)",
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["major"],
+			"rangeStrategy": "auto",
+			"commitMessageTopic": "{{depName}} from {{currentValue}}",
+			"automerge": true,
+			"minimumReleaseAge": "7 days",
+			"labels": ["dependency-update", "dev-dependency", "major"]
+		},
+		{
+			"description": "Dependency patches (automerge after 5 days)",
+			"matchDepTypes": ["dependencies", "peerDependencies"],
+			"matchUpdateTypes": ["patch"],
+			"rangeStrategy": "auto",
+			"commitMessageTopic": "{{depName}} from {{currentValue}}",
+			"automerge": true,
+			"minimumReleaseAge": "5 days",
+			"labels": ["dependency-update", "patch"]
+		},
+		{
+			"description": "Dependency minors (automerge after 7 days)",
+			"matchDepTypes": ["dependencies", "peerDependencies"],
+			"matchUpdateTypes": ["minor"],
+			"rangeStrategy": "auto",
+			"commitMessageTopic": "{{depName}} from {{currentValue}}",
+			"automerge": true,
+			"minimumReleaseAge": "7 days",
+			"labels": ["dependency-update", "minor"]
+		},
+		{
+			"description": "Dependency majors (require approval, wait 21 days)",
+			"matchDepTypes": ["dependencies", "peerDependencies"],
+			"matchUpdateTypes": ["major"],
+			"rangeStrategy": "auto",
+			"commitMessageTopic": "{{depName}} from {{currentValue}}",
+			"automerge": true,
+			"dependencyDashboardApproval": true,
+			"minimumReleaseAge": "21 days",
+			"labels": ["dependency-update", "major", "breaking-change"]
+		}
+	]
 }
