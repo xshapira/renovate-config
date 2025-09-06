@@ -1,0 +1,21 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"description": "Renovate preset for Expo and React Native projects",
+	"packageRules": [
+		{
+			"description": "Group Expo/React Native packages (manual review required)",
+			"matchManagers": ["bun", "pnpm"],
+			"matchPackagePatterns": [
+				"^expo",
+				"^@expo/",
+				"^react-native",
+				"^@react-native"
+			],
+			"groupName": "expo-rn",
+			"automerge": false,
+			"minimumReleaseAge": "14 days",
+			"commitMessageTopic": "Expo/RN packages",
+			"labels": ["manual-review", "expo", "react-native", "dependency-update"]
+		}
+	]
+}
