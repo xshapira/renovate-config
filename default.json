@@ -24,11 +24,6 @@
 	},
 	"packageRules": [
 		{
-			"matchManagers": ["bun", "pnpm"],
-			"automerge": false,
-			"labels": ["manual-review", "dependency-update"]
-		},
-		{
 			"matchUpdateTypes": ["patch"],
 			"rangeStrategy": "bump",
 			"commitMessageTopic": "{{depName}} from {{currentValue}}",
