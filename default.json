@@ -5,7 +5,12 @@
 		":preserveSemverRanges",
 		":enablePreCommit",
 		":maintainLockFilesWeekly",
+		":automergeStableNonMajor",
+		":automergePatch",
+		":automergeDigest",
+		":automergeTypes",
 		":semanticCommitsDisabled",
+		"schedule:automergeNonOfficeHours",
 		"schedule:nonOfficeHours"
 	],
 	"requireConfig": "optional",
@@ -19,65 +24,35 @@
 	},
 	"packageRules": [
 		{
-			"description": "Dev dependency patches (automerge after 3 days)",
-			"matchDepTypes": ["devDependencies"],
+			"matchManagers": ["bun", "pnpm"],
+			"automerge": false,
+			"labels": ["manual-review", "dependency-update"]
+		},
+		{
 			"matchUpdateTypes": ["patch"],
-			"rangeStrategy": "auto",
+			"rangeStrategy": "bump",
 			"commitMessageTopic": "{{depName}} from {{currentValue}}",
 			"automerge": true,
 			"minimumReleaseAge": "3 days",
-			"labels": ["dependency-update", "dev-dependency", "patch"]
+			"labels": ["patch", "dependency-update"]
 		},
 		{
-			"description": "Dev dependency minors (automerge after 5 days)",
-			"matchDepTypes": ["devDependencies"],
 			"matchUpdateTypes": ["minor"],
-			"rangeStrategy": "auto",
-			"commitMessageTopic": "{{depName}} from {{currentValue}}",
-			"automerge": true,
-			"minimumReleaseAge": "5 days",
-			"labels": ["dependency-update", "dev-dependency", "minor"]
-		},
-		{
-			"description": "Dev dependency majors (automerge after 7 days)",
-			"matchDepTypes": ["devDependencies"],
-			"matchUpdateTypes": ["major"],
-			"rangeStrategy": "auto",
+			"rangeStrategy": "bump",
 			"commitMessageTopic": "{{depName}} from {{currentValue}}",
 			"automerge": true,
 			"minimumReleaseAge": "7 days",
-			"labels": ["dependency-update", "dev-dependency", "major"]
+			"labels": ["minor", "dependency-update"]
 		},
 		{
-			"description": "Dependency patches (automerge after 5 days)",
-			"matchDepTypes": ["dependencies", "peerDependencies"],
-			"matchUpdateTypes": ["patch"],
-			"rangeStrategy": "auto",
-			"commitMessageTopic": "{{depName}} from {{currentValue}}",
-			"automerge": true,
-			"minimumReleaseAge": "5 days",
-			"labels": ["dependency-update", "patch"]
-		},
-		{
-			"description": "Dependency minors (automerge after 7 days)",
-			"matchDepTypes": ["dependencies", "peerDependencies"],
-			"matchUpdateTypes": ["minor"],
-			"rangeStrategy": "auto",
-			"commitMessageTopic": "{{depName}} from {{currentValue}}",
-			"automerge": true,
-			"minimumReleaseAge": "7 days",
-			"labels": ["dependency-update", "minor"]
-		},
-		{
-			"description": "Dependency majors (require approval, wait 21 days)",
-			"matchDepTypes": ["dependencies", "peerDependencies"],
 			"matchUpdateTypes": ["major"],
-			"rangeStrategy": "auto",
-			"commitMessageTopic": "{{depName}} from {{currentValue}}",
-			"automerge": true,
-			"dependencyDashboardApproval": true,
-			"minimumReleaseAge": "21 days",
-			"labels": ["dependency-update", "major", "breaking-change"]
+			"major": {
+				"rangeStrategy": "bump",
+				"commitMessageTopic": "{{depName}} from {{currentValue}}",
+				"automerge": true,
+				"minimumReleaseAge": "14 days",
+				"labels": ["major", "dependency-update"]
+			}
 		}
 	]
 }
