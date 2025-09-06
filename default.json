@@ -13,7 +13,6 @@
 		"schedule:automergeNonOfficeHours",
 		"schedule:nonOfficeHours"
 	],
-	"requireConfig": "optional",
 	"onboarding": false,
 	"automergeStrategy": "merge-commit",
 	"prHourlyLimit": 3,
