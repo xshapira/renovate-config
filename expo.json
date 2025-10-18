@@ -9,7 +9,12 @@
 				"^expo",
 				"^@expo/",
 				"^react-native",
-				"^@react-native"
+				"^@react-native",
+				"^react",
+				"^react-dom",
+				"^typescript",
+				"^@types/react",
+				"^@types/react-dom"
 			],
 			"groupName": "expo-rn",
 			"automerge": false,
