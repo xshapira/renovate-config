@@ -14,7 +14,8 @@
 				"^react-dom",
 				"^typescript",
 				"^@types/react",
-				"^@types/react-dom"
+				"^@types/react-dom",
+				"@sentry/react-native"
 			],
 			"groupName": "expo-rn",
 			"automerge": false,
